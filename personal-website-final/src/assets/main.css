@@ -39,11 +39,11 @@ body {
 .nav-links a:hover { color: #aaa; }
 .nav-links a.active { color: #ffffff; transform: translateX(10px); }
 
-/* --- Content Area (WIDENED FOR LARGER PHOTOS) --- */
+/* --- Content Area --- */
 .content-area {
     grid-column: 2; 
     padding: 150px 8% 200px 8%; 
-    max-width: 1800px; /* Greatly increased so photos can grow huge on large monitors */
+    max-width: 1800px; 
 }
 
 /* --- Typography & Sections --- */
@@ -61,8 +61,12 @@ section { margin-bottom: 150px; scroll-margin-top: 100px; }
 .contact-link { text-decoration: none; display: block; cursor: pointer; }
 .contact-link:hover .item-title { color: #ccc; transition: color 0.2s ease; }
 
-/* --- Gallery Grid (LARGE DESKTOP VIEW) --- */
-.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+/* --- Gallery Grid (LOCKED TO 6 PICTURES FOREVER) --- */
+.gallery-grid { 
+    display: grid; 
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 15px; 
+}
 .gallery-item { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 8px; background-color: #1a1a1a; }
 .gallery-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.3s ease, transform 0.3s ease; }
 .gallery-item:hover img { opacity: 1; transform: scale(1.05); }
@@ -81,7 +85,6 @@ textarea.gb-input { resize: none; min-height: 100px; }
 
 @media (max-width: 1024px) {
     /* Tablet View */
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
     .content-area { padding-right: 5%; }
 }
 
@@ -96,7 +99,7 @@ textarea.gb-input { resize: none; min-height: 100px; }
         display: block; 
     }
     
-    /* Removed text, pushed hamburger to the right */
+    /* Mobile Header */
     .mobile-header {
         display: flex; justify-content: flex-end; align-items: center;
     }
@@ -113,9 +116,7 @@ textarea.gb-input { resize: none; min-height: 100px; }
     
     .content-area { padding: 100px 20px 60px 20px; width: 100%; }
     .hero h1 { font-size: 28px; margin-bottom: 20px; }
-    
-    /* Phone View */
-    .gallery-grid { grid-template-columns: 1fr; gap: 15px; } 
-    
     section { margin-bottom: 80px; scroll-margin-top: 80px; }
+    
+    /* NO GALLERY OVERRIDES HERE! It will stay exactly 6 frames anywhere! */
 }
