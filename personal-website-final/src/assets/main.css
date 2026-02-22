@@ -79,31 +79,28 @@ textarea.gb-input { resize: none; min-height: 100px; }
 .gb-button { background-color: #333; color: #fff; border: none; padding: 15px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease; }
 .gb-button:hover { background-color: #555; }
 
-/* =========================================
-   ENTRANCE ANIMATION (POP-UP EFFECT)
-   ========================================= */
 
 @keyframes popUp {
     0% {
         opacity: 0;
-        transform: translateY(40px); /* Starts 40px lower */
+        transform: translateY(40px); 
     }
     100% {
         opacity: 1;
-        transform: translateY(0); /* Ends in its normal spot */
+        transform: translateY(0); 
     }
 }
 
-/* Applies the animation to specific text blocks */
+/* Applies the animation - Slowed down to 1.5 seconds */
 .hero h1, .section-header, .list-item, .brand-list span, .gallery-item {
-    opacity: 0; /* Keeps them invisible until animation triggers */
-    animation: popUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0; 
+    animation: popUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-/* Staggered timing so they flow in naturally */
-.hero h1:nth-child(1) { animation-delay: 0.1s; }
-.hero h1:nth-child(2) { animation-delay: 0.3s; }
-.section-header, .list-item, .brand-list span, .gallery-item { animation-delay: 0.5s; }
+/* Staggered timing slowed down for a more cinematic feel */
+.hero h1:nth-child(1) { animation-delay: 0.3s; }
+.hero h1:nth-child(2) { animation-delay: 0.8s; }
+.section-header, .list-item, .brand-list span, .gallery-item { animation-delay: 1.2s; }
 
 
 /* =========================================
