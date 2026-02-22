@@ -65,7 +65,6 @@ onMounted(() => {
         
         <aside class="sidebar-nav">
             <div class="mobile-header">
-                <span class="mobile-title">Menu</span>
                 <button class="menu-toggle" @click="toggleMenu">☰</button>
             </div>
 
