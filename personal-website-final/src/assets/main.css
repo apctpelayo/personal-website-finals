@@ -43,7 +43,7 @@ body {
 .content-area {
     grid-column: 2; 
     padding: 150px 8% 200px 8%; 
-    max-width: 1800px; /* Allows photos to grow massive on large screens */
+    max-width: 1800px; /* Keeps the content area wide so images can grow huge */
 }
 
 /* --- Typography & Sections --- */
@@ -61,15 +61,15 @@ section { margin-bottom: 150px; scroll-margin-top: 100px; }
 .contact-link { text-decoration: none; display: block; cursor: pointer; }
 .contact-link:hover .item-title { color: #ccc; transition: color 0.2s ease; }
 
-/* --- Gallery Grid (FLUID SCALING, ALWAYS 6 FRAMES) --- */
+/* --- Gallery Grid (3x2 LARGE DESKTOP VIEW) --- */
 .gallery-grid { 
     display: grid; 
-    grid-template-columns: repeat(6, 1fr); /* Locks exactly 6 columns */
-    gap: 15px; /* Large gap for large monitors */
+    grid-template-columns: repeat(3, 1fr); /* 3 columns across */
+    gap: 25px; /* Nice big gap so the photos look like a museum wall */
 }
 .gallery-item { 
     position: relative; 
-    aspect-ratio: 4 / 3; /* Forces them to stay rectangular as they shrink */
+    aspect-ratio: 4 / 3; 
     overflow: hidden; 
     border-radius: 8px; 
     background-color: #1a1a1a; 
@@ -97,7 +97,6 @@ textarea.gb-input { resize: none; min-height: 100px; }
 
 @media (max-width: 1024px) {
     .content-area { padding-right: 5%; }
-    .gallery-grid { gap: 10px; } /* Shrinks the gap slightly for tablets */
 }
 
 @media (max-width: 768px) {
@@ -122,6 +121,9 @@ textarea.gb-input { resize: none; min-height: 100px; }
     .hero h1 { font-size: 28px; margin-bottom: 20px; }
     section { margin-bottom: 80px; scroll-margin-top: 80px; }
     
-    /* Shrinks the gap dramatically for phones so the 6 photos have max room to scale down */
-    .gallery-grid { gap: 3px; } 
+    /* --- Gallery Grid (2x3 MOBILE VIEW) --- */
+    .gallery-grid { 
+        grid-template-columns: repeat(2, 1fr); /* 2 columns across, stacking into 3 rows */
+        gap: 15px; 
+    } 
 }
