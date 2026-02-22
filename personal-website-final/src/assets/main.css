@@ -28,7 +28,7 @@ body {
     background-color: #0d0d0d;
 }
 
-.mobile-header { display: none; } /* Hidden on desktop */
+.mobile-header { display: none; } 
 
 .nav-links { display: flex; flex-direction: column; }
 .nav-links a {
@@ -43,7 +43,7 @@ body {
 .content-area {
     grid-column: 2; 
     padding: 150px 8% 200px 8%; 
-    max-width: 1800px; 
+    max-width: 1800px; /* Allows photos to grow massive on large screens */
 }
 
 /* --- Typography & Sections --- */
@@ -61,14 +61,26 @@ section { margin-bottom: 150px; scroll-margin-top: 100px; }
 .contact-link { text-decoration: none; display: block; cursor: pointer; }
 .contact-link:hover .item-title { color: #ccc; transition: color 0.2s ease; }
 
-/* --- Gallery Grid (LOCKED TO 6 PICTURES FOREVER) --- */
+/* --- Gallery Grid (FLUID SCALING, ALWAYS 6 FRAMES) --- */
 .gallery-grid { 
     display: grid; 
-    grid-template-columns: repeat(6, 1fr); 
-    gap: 15px; 
+    grid-template-columns: repeat(6, 1fr); /* Locks exactly 6 columns */
+    gap: 15px; /* Large gap for large monitors */
 }
-.gallery-item { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 8px; background-color: #1a1a1a; }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.3s ease, transform 0.3s ease; }
+.gallery-item { 
+    position: relative; 
+    aspect-ratio: 4 / 3; /* Forces them to stay rectangular as they shrink */
+    overflow: hidden; 
+    border-radius: 8px; 
+    background-color: #1a1a1a; 
+}
+.gallery-item img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    opacity: 0.8; 
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+}
 .gallery-item:hover img { opacity: 1; transform: scale(1.05); }
 
 /* --- Guestbook Form --- */
@@ -84,14 +96,13 @@ textarea.gb-input { resize: none; min-height: 100px; }
    ========================================= */
 
 @media (max-width: 1024px) {
-    /* Tablet View */
     .content-area { padding-right: 5%; }
+    .gallery-grid { gap: 10px; } /* Shrinks the gap slightly for tablets */
 }
 
 @media (max-width: 768px) {
     .main-layout { display: flex; flex-direction: column; }
     
-    /* Sticky Top Menu Bar */
     .sidebar-nav {
         position: fixed; top: 0; width: 100%; height: auto;
         padding: 15px 20px; border-right: none; border-bottom: 1px solid #222;
@@ -99,18 +110,11 @@ textarea.gb-input { resize: none; min-height: 100px; }
         display: block; 
     }
     
-    /* Mobile Header */
-    .mobile-header {
-        display: flex; justify-content: flex-end; align-items: center;
-    }
-    
-    .menu-toggle {
-        background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; padding: 0 10px;
-    }
+    .mobile-header { display: flex; justify-content: flex-end; align-items: center; }
+    .menu-toggle { background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; padding: 0 10px; }
 
     .nav-links { display: none; margin-top: 20px; }
     .nav-links.open { display: flex; }
-    
     .nav-links a { padding: 12px 0; border-bottom: 1px solid #222; margin-bottom: 0; font-size: 16px; }
     .nav-links a.active { transform: none; color: #fff; font-weight: bold; }
     
@@ -118,5 +122,6 @@ textarea.gb-input { resize: none; min-height: 100px; }
     .hero h1 { font-size: 28px; margin-bottom: 20px; }
     section { margin-bottom: 80px; scroll-margin-top: 80px; }
     
-    /* NO GALLERY OVERRIDES HERE! It will stay exactly 6 frames anywhere! */
+    /* Shrinks the gap dramatically for phones so the 6 photos have max room to scale down */
+    .gallery-grid { gap: 3px; } 
 }
