@@ -6,7 +6,6 @@ const comments = ref([])
 const newName = ref('')
 const newMessage = ref('')
 
-// GET Method: Fetch comments from Vercel API
 const fetchComments = async () => {
   try {
     const response = await fetch('/api/guestbook')
@@ -16,7 +15,6 @@ const fetchComments = async () => {
   }
 }
 
-// POST Method: Submit comment to Vercel API
 const submitComment = async () => {
   try {
     await fetch('/api/guestbook', {
@@ -26,43 +24,39 @@ const submitComment = async () => {
     })
     newName.value = ''
     newMessage.value = ''
-    fetchComments() // Refresh the list after posting
+    fetchComments()
   } catch (error) {
     console.error("Error submitting comment:", error)
   }
 }
 
-// --- SCROLL SPY LOGIC (From your original JS) ---
+// --- MOBILE MENU LOGIC ---
+const isMenuOpen = ref(false)
+const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value
+}
+
+// --- SCROLL SPY LOGIC ---
 onMounted(() => {
-  fetchComments(); // Load database comments when page opens
+  fetchComments();
 
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('.section-spy');
 
-  const observerOptions = {
-      root: null,
-      rootMargin: "-20% 0px -60% 0px",
-      threshold: 0
-  };
+  const observerOptions = { root: null, rootMargin: "-20% 0px -60% 0px", threshold: 0 };
 
   const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
           if (entry.isIntersecting) {
-              navLinks.forEach(link => {
-                  link.classList.remove('active');
-              });
+              navLinks.forEach(link => link.classList.remove('active'));
               const id = entry.target.getAttribute('id');
               const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
-              if (activeLink) {
-                  activeLink.classList.add('active');
-              }
+              if (activeLink) activeLink.classList.add('active');
           }
       });
   }, observerOptions);
 
-  sections.forEach(section => {
-      if (section) observer.observe(section);
-  });
+  sections.forEach(section => { if (section) observer.observe(section); });
 });
 </script>
 
@@ -70,15 +64,20 @@ onMounted(() => {
   <div class="main-layout">
         
         <aside class="sidebar-nav">
-            <nav class="nav-links">
-                <a href="#about" class="nav-link active">About Me</a>
-                <a href="#education" class="nav-link">Education</a>
-                <a href="#skills" class="nav-link">IT Experience</a>
-                <a href="#hobbies" class="nav-link">Hobbies</a>
-                <a href="#goals" class="nav-link">Goals</a>
-                <a href="#gallery" class="nav-link">Gallery</a>
-                <a href="#guestbook" class="nav-link">Guestbook</a>
-                <a href="#contact" class="nav-link">Contact</a>
+            <div class="mobile-header">
+                <span class="mobile-title">Menu</span>
+                <button class="menu-toggle" @click="toggleMenu">☰</button>
+            </div>
+
+            <nav class="nav-links" :class="{ 'open': isMenuOpen }">
+                <a href="#about" class="nav-link active" @click="isMenuOpen = false">About Me</a>
+                <a href="#education" class="nav-link" @click="isMenuOpen = false">Education</a>
+                <a href="#skills" class="nav-link" @click="isMenuOpen = false">IT Experience</a>
+                <a href="#hobbies" class="nav-link" @click="isMenuOpen = false">Hobbies</a>
+                <a href="#goals" class="nav-link" @click="isMenuOpen = false">Goals</a>
+                <a href="#gallery" class="nav-link" @click="isMenuOpen = false">Gallery</a>
+                <a href="#guestbook" class="nav-link" @click="isMenuOpen = false">Guestbook</a>
+                <a href="#contact" class="nav-link" @click="isMenuOpen = false">Contact</a>
             </nav>
         </aside>
 
@@ -91,17 +90,14 @@ onMounted(() => {
 
             <section id="education" class="section-spy">
                 <h2 class="section-header">Education & Achievements</h2>
-                
                 <div class="list-item">
                     <div class="item-title">Bachelor of Science in Information Technology</div>
                     <span class="item-subtitle">Current Course in Asia Pacific College</span>
                 </div>
-
                 <div class="list-item">
                     <div class="item-title">Best in Computer Programming 4</div>
                     <span class="item-subtitle">Academic Achievement in Senior High School</span>
                 </div>
-
                 <div class="list-item">
                     <div class="item-title">2nd Place Web Design Competition</div>
                     <span class="item-subtitle">Hosted by JPCS</span>
@@ -110,12 +106,10 @@ onMounted(() => {
 
             <section id="skills" class="section-spy">
                 <h2 class="section-header">IT Experience</h2>
-                
                 <div class="list-item">
                     <div class="item-title">Programming Languages</div>
                     <span class="item-subtitle">Basic Coding in Python & Java</span>
                 </div>
-
                 <div class="list-item">
                     <div class="item-title">Web Development</div>
                     <span class="item-subtitle">Basic HTML & CSS</span>
@@ -176,7 +170,6 @@ onMounted(() => {
                         <div class="item-title">Instagram</div>
                         <span class="item-subtitle">@handtheler</span>
                     </a>
-                    
                     <a href="https://www.instagram.com/sdcardreaderdslr/" target="_blank" class="contact-link">
                         <div class="item-title">Photography Account</div>
                         <span class="item-subtitle">@sdcardreaderdslr</span>
