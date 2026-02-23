@@ -95,9 +95,12 @@ onMounted(() => {
         <main class="content-area">
             
             <div class="hero section-spy" id="about">
-                <h1>hey, my name is Timoteo Pelayo</h1>
-                <h1>I am a 2nd year student at Asia Pacific College.</h1>
-            </div>
+                    <h1>hey, my name is Timoteo Pelayo</h1>
+    
+                    <img src="/Image.jpg" alt="Profile Picture" class="profile-pic">
+    
+                    <h1>I am a 2nd year student at Asia Pacific College.</h1>
+                </div>
 
             <section id="education" class="section-spy">
                 <h2 class="section-header">Education & Achievements</h2>

@@ -49,6 +49,18 @@ body {
 /* --- Typography & Sections --- */
 .hero { margin-bottom: 80px; min-height: auto; padding-bottom: 20px; }
 .hero h1 { font-size: clamp(24px, 3vw, 40px); font-weight: 300; line-height: 1.4; margin-bottom: 40px; max-width: 90%; }
+
+/* NEW STYLE FOR THE PICTURE */
+.profile-pic {
+    width: 180px; /* Adjust size as needed */
+    height: 180px;
+    border-radius: 50%; /* Makes it a circle */
+    object-fit: cover;
+    border: 2px solid #333; /* Subtle dark border */
+    margin-bottom: 40px; /* Spacing below the picture */
+    display: block; /* Ensures it sits on its own line */
+}
+
 .section-header { font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; margin-bottom: 40px; }
 section { margin-bottom: 150px; scroll-margin-top: 100px; }
 .list-item { margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid #1a1a1a; }
@@ -80,26 +92,32 @@ textarea.gb-input { resize: none; min-height: 100px; }
 .gb-button:hover { background-color: #555; }
 
 
+/* =========================================
+   ENTRANCE ANIMATION (POP-UP EFFECT)
+   ========================================= */
+
 @keyframes popUp {
-    0% {
-        opacity: 0;
-        transform: translateY(40px); 
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0); 
-    }
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Applies the animation - Slowed down to 1.5 seconds */
-.hero h1, .section-header, .list-item, .brand-list span, .gallery-item {
+/* Added .profile-pic to this list so it animates too! */
+.hero h1, .profile-pic, .section-header, .list-item, .brand-list span, .gallery-item {
     opacity: 0; 
     animation: popUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-/* Staggered timing slowed down for a more cinematic feel */
-.hero h1:nth-child(1) { animation-delay: 0.3s; }
-.hero h1:nth-child(2) { animation-delay: 0.8s; }
+/* STAGGERED TIMING UPDATED */
+/* First text line */
+.hero h1:nth-of-type(1) { animation-delay: 0.3s; } 
+
+/* The Picture pops up next */
+.profile-pic { animation-delay: 0.6s; } 
+
+/* Second text line pops up last */
+.hero h1:nth-of-type(2) { animation-delay: 0.9s; }
+
+/* The rest of the page follows */
 .section-header, .list-item, .brand-list span, .gallery-item { animation-delay: 1.2s; }
 
 
