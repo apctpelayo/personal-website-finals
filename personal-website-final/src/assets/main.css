@@ -65,7 +65,7 @@ section { margin-bottom: 150px; scroll-margin-top: 100px; }
 .item-title { font-size: 22px; font-weight: 400; color: #fff; margin-bottom: 5px; }
 .item-subtitle { font-size: 16px; color: #888; display: block; margin-bottom: 5px; }
 .brand-list span { display: block; font-size: 20px; color: #666; margin-bottom: 10px; }
-
+.gallery-item { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 8px; background-color: #1a1a1a; cursor: pointer; }
 .contact-link { text-decoration: none; display: block; cursor: pointer; }
 .contact-link:hover .item-title { color: #ccc; transition: color 0.2s ease; }
 
@@ -237,3 +237,63 @@ textarea.gb-input { resize: none; min-height: 100px; }
     font-size: 14px;
     color: #888;
 }
+/* =========================================
+   IMAGE LIGHTBOX MODAL
+   ========================================= */
+.image-modal-content {
+    background-color: #0d0d0d;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 40px;
+    width: 95%;
+    max-width: 1200px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    animation: popUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    overflow-y: auto;
+}
+
+.full-res-img {
+    max-width: 100%;
+    max-height: 65vh; /* Leaves room at the bottom for the camera details */
+    object-fit: contain; /* Ensures the whole picture fits without cropping */
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.image-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    border-top: 1px solid #222;
+    padding-top: 25px;
+}
+
+.detail-item {
+    font-size: 14px;
+    color: #ccc;
+    background: #1a1a1a;
+    padding: 10px 20px;
+    border-radius: 30px; /* Creates sleek pill-shaped badges */
+    border: 1px solid #333;
+}
+
+.detail-label {
+    color: #888;
+    font-weight: bold;
+    margin-right: 5px;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+/* Custom dark scrollbar for the image modal too */
+.image-modal-content::-webkit-scrollbar { width: 8px; }
+.image-modal-content::-webkit-scrollbar-track { background: #0d0d0d; border-radius: 8px; }
+.image-modal-content::-webkit-scrollbar-thumb { background: #333; border-radius: 8px; }
+.image-modal-content::-webkit-scrollbar-thumb:hover { background: #555; }

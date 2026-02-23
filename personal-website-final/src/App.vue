@@ -25,7 +25,7 @@ const submitComment = async () => {
     newName.value = ''
     newMessage.value = ''
     fetchComments()
-    currentPage.value = 1 // Jumps back to page 1 to see the new comment!
+    currentPage.value = 1 
   } catch (error) {
     console.error("Error submitting comment:", error)
   }
@@ -48,12 +48,24 @@ const totalPages = computed(() => {
 const nextPage = () => { if (currentPage.value < totalPages.value) currentPage.value++ }
 const prevPage = () => { if (currentPage.value > 1) currentPage.value-- }
 
-// Makes the raw database timestamp look pretty (e.g., "Feb 24, 2026, 10:30 AM")
 const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
 }
+
+// --- GALLERY LIGHTBOX LOGIC ---
+// Placeholder data - edit the ISO, Aperture, Shutter, and Date to match your real shots!
+const galleryImages = ref([
+    { src: '/DSC_6509.JPG', alt: 'Gallery Image 1', iso: 'ISO 100', aperture: 'f/2.8', shutter: '1/200s', date: 'Oct 12, 2025' },
+    { src: '/DSC_6535.JPG', alt: 'Gallery Image 2', iso: 'ISO 400', aperture: 'f/4.0', shutter: '1/500s', date: 'Oct 12, 2025' },
+    { src: '/DSC_6539.JPG', alt: 'Gallery Image 3', iso: 'ISO 200', aperture: 'f/1.8', shutter: '1/1000s', date: 'Oct 15, 2025' },
+    { src: '/DSC_6552.JPG', alt: 'Gallery Image 4', iso: 'ISO 800', aperture: 'f/5.6', shutter: '1/60s', date: 'Oct 18, 2025' },
+    { src: '/DSC_6576.JPG', alt: 'Gallery Image 5', iso: 'ISO 100', aperture: 'f/2.8', shutter: '1/250s', date: 'Oct 20, 2025' },
+    { src: '/DSC_6581.JPG', alt: 'Gallery Image 6', iso: 'ISO 1600', aperture: 'f/8.0', shutter: '1/30s', date: 'Oct 22, 2025' }
+])
+
+const selectedImage = ref(null) // Holds the currently clicked image
 
 // --- MOBILE MENU & MODAL LOGIC ---
 const isMenuOpen = ref(false)
@@ -63,8 +75,9 @@ const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
 }
 
-watch(showResources, (isOpen) => {
-  if (isOpen) {
+// WATCHER: Locks background scrolling if EITHER modal is open
+watch([showResources, selectedImage], ([resOpen, imgOpen]) => {
+  if (resOpen || imgOpen !== null) {
     document.body.style.overflow = 'hidden'
   } else {
     document.body.style.overflow = ''
@@ -185,12 +198,9 @@ onMounted(() => {
             <section id="gallery" class="section-spy">
                 <h2 class="section-header">Picture Gallery</h2> 
                 <div class="gallery-grid">
-                    <div class="gallery-item"><img src="/DSC_6509.JPG" alt="Gallery Image 1"></div>
-                    <div class="gallery-item"><img src="/DSC_6535.JPG" alt="Gallery Image 2"></div>
-                    <div class="gallery-item"><img src="/DSC_6539.JPG" alt="Gallery Image 3"></div>
-                    <div class="gallery-item"><img src="/DSC_6552.JPG" alt="Gallery Image 4"></div>
-                    <div class="gallery-item"><img src="/DSC_6576.JPG" alt="Gallery Image 5"></div>
-                    <div class="gallery-item"><img src="/DSC_6581.JPG" alt="Gallery Image 6"></div>
+                    <div class="gallery-item" v-for="(img, index) in galleryImages" :key="index" @click="selectedImage = img">
+                        <img :src="img.src" :alt="img.alt">
+                    </div>
                 </div>
             </section>
 
@@ -272,5 +282,20 @@ onMounted(() => {
             </div>
         </div>
 
+        <div v-if="selectedImage" class="modal-overlay" @click.self="selectedImage = null">
+            <div class="image-modal-content">
+                <button class="modal-close" @click="selectedImage = null">×</button>
+                
+                <img :src="selectedImage.src" :alt="selectedImage.alt" class="full-res-img">
+                
+                <div class="image-details">
+                    <div class="detail-item"><span class="detail-label">ISO:</span> {{ selectedImage.iso }}</div>
+                    <div class="detail-item"><span class="detail-label">Aperture:</span> {{ selectedImage.aperture }}</div>
+                    <div class="detail-item"><span class="detail-label">Shutter:</span> {{ selectedImage.shutter }}</div>
+                    <div class="detail-item"><span class="detail-label">Date:</span> {{ selectedImage.date }}</div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </template>
