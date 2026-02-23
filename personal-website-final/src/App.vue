@@ -213,14 +213,17 @@ onMounted(() => {
                 <h2 class="section-header" style="margin-bottom: 20px;">Project Resources</h2>
                 
                 <div class="list-item" style="border: none; padding-bottom: 0; margin-bottom: 0;">
-                    <a href="#" target="_blank" class="contact-link" style="margin-bottom: 20px;">
-                        <div class="item-title">Resource Link 1</div>
-                        <span class="item-subtitle">Description of this resource goes here.</span>
+                    
+                    <div class="contact-link" style="margin-bottom: 20px; cursor: default;">
+                        <div class="item-title">Google Gemini</div>
+                        <span class="item-subtitle">AI Assistant / Code Troubleshooting</span>
+                    </div>
+
+                    <a href="https://camillemormal.com/about" target="_blank" class="contact-link">
+                        <div class="item-title">Inspiration</div>
+                        <span class="item-subtitle">camillemormal.com/about</span>
                     </a>
-                    <a href="#" target="_blank" class="contact-link">
-                        <div class="item-title">Resource Link 2</div>
-                        <span class="item-subtitle">Description of this resource goes here.</span>
-                    </a>
+
                 </div>
             </div>
         </div>
