@@ -183,3 +183,8 @@ textarea.gb-input { resize: none; min-height: 100px; }
     opacity: 1 !important;
     animation: none !important;
 }
+/* Fix: Forces database comments to be visible since they load after the animation fires */
+.visible-comment {
+    opacity: 1 !important;
+    animation: none !important;
+}

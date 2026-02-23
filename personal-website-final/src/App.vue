@@ -175,7 +175,7 @@ onMounted(() => {
                     </form>
                 </div>
 
-                <div class="list-item" v-for="comment in comments" :key="comment.id">
+                <div class="list-item visible-comment" v-for="comment in comments" :key="comment.id">
                     <div class="item-title">{{ comment.name }}</div>
                     <span class="item-subtitle">{{ comment.message }}</span>
                 </div>
