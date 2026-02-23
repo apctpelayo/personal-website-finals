@@ -1,6 +1,7 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 
+// --- DATABASE LOGIC ---
 const comments = ref([])
 const newName = ref('')
 const newMessage = ref('')
@@ -24,11 +25,37 @@ const submitComment = async () => {
     newName.value = ''
     newMessage.value = ''
     fetchComments()
+    currentPage.value = 1 // Jumps back to page 1 to see the new comment!
   } catch (error) {
     console.error("Error submitting comment:", error)
   }
 }
 
+// --- PAGINATION & DATE LOGIC ---
+const currentPage = ref(1)
+const commentsPerPage = 5
+
+const paginatedComments = computed(() => {
+    const start = (currentPage.value - 1) * commentsPerPage
+    const end = start + commentsPerPage
+    return comments.value.slice(start, end)
+})
+
+const totalPages = computed(() => {
+    return Math.ceil(comments.value.length / commentsPerPage) || 1
+})
+
+const nextPage = () => { if (currentPage.value < totalPages.value) currentPage.value++ }
+const prevPage = () => { if (currentPage.value > 1) currentPage.value-- }
+
+// Makes the raw database timestamp look pretty (e.g., "Feb 24, 2026, 10:30 AM")
+const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+}
+
+// --- MOBILE MENU & MODAL LOGIC ---
 const isMenuOpen = ref(false)
 const showResources = ref(false) 
 
@@ -44,12 +71,14 @@ watch(showResources, (isOpen) => {
   }
 })
 
+// --- SCROLL SPY & SCROLL ANIMATION LOGIC ---
 onMounted(() => {
   fetchComments();
 
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('.section-spy');
   const observerOptions = { root: null, rootMargin: "-20% 0px -60% 0px", threshold: 0 };
+  
   const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -60,6 +89,7 @@ onMounted(() => {
           }
       });
   }, observerOptions);
+  
   sections.forEach(section => { if (section) observer.observe(section); });
 
   const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -175,9 +205,18 @@ onMounted(() => {
                     </form>
                 </div>
 
-                <div class="list-item visible-comment" v-for="comment in comments" :key="comment.id">
-                    <div class="item-title">{{ comment.name }}</div>
+                <div class="list-item visible-comment" v-for="comment in paginatedComments" :key="comment.id">
+                    <div class="comment-header">
+                        <div class="item-title">{{ comment.name }}</div>
+                        <div class="comment-date">{{ formatDate(comment.created_at) }}</div>
+                    </div>
                     <span class="item-subtitle">{{ comment.message }}</span>
+                </div>
+
+                <div class="pagination-controls" v-if="comments.length > 5">
+                    <button @click="prevPage" :disabled="currentPage === 1" class="page-btn">Previous</button>
+                    <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+                    <button @click="nextPage" :disabled="currentPage === totalPages" class="page-btn">Next</button>
                 </div>
             </section>
 
