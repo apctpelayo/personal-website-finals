@@ -147,24 +147,31 @@ textarea.gb-input { resize: none; min-height: 100px; }
     position: fixed; 
     top: 0; left: 0; 
     width: 100vw; height: 100vh;
-    background-color: rgba(0, 0, 0, 0.95); /* Made it darker to replace the blur */
+    background-color: rgba(0, 0, 0, 0.95); 
     display: flex; 
     justify-content: center; 
     align-items: center;
     z-index: 9999; 
-    /* Removed the blur filter to fix the lag! */
 }
 
 .modal-content {
     background-color: #0d0d0d;
     border: 1px solid #333;
     border-radius: 12px;
-    padding: 40px;
+    padding: 50px 40px 40px 40px; /* Extra top padding so links don't hit the close button */
     width: 90%;
-    max-width: 500px;
+    max-width: 700px; /* Made the pop-up much wider */
+    max-height: 80vh; /* Limits height to 80% of the screen */
+    overflow-y: auto; /* Makes the inside scrollable if links overflow! */
     position: relative;
     animation: popUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
 }
+
+/* Custom Dark Theme Scrollbar for the Pop-up */
+.modal-content::-webkit-scrollbar { width: 8px; }
+.modal-content::-webkit-scrollbar-track { background: #0d0d0d; border-radius: 8px; }
+.modal-content::-webkit-scrollbar-thumb { background: #333; border-radius: 8px; }
+.modal-content::-webkit-scrollbar-thumb:hover { background: #555; }
 
 .modal-close {
     position: absolute; 
