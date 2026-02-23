@@ -30,8 +30,10 @@ const submitComment = async () => {
   }
 }
 
-// --- MOBILE MENU LOGIC ---
+// --- MOBILE MENU & MODAL LOGIC ---
 const isMenuOpen = ref(false)
+const showResources = ref(false) // Controls the pop-up visibility
+
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
 }
@@ -77,6 +79,7 @@ onMounted(() => {
                 <a href="#gallery" class="nav-link" @click="isMenuOpen = false">Gallery</a>
                 <a href="#guestbook" class="nav-link" @click="isMenuOpen = false">Guestbook</a>
                 <a href="#contact" class="nav-link" @click="isMenuOpen = false">Contact</a>
+                <a href="#" class="nav-link" @click.prevent="showResources = true; isMenuOpen = false">Resources</a>
             </nav>
         </aside>
 
@@ -191,5 +194,24 @@ onMounted(() => {
             </section>
 
         </main>
+        
+        <div v-if="showResources" class="modal-overlay" @click.self="showResources = false">
+            <div class="modal-content">
+                <button class="modal-close" @click="showResources = false">×</button>
+                <h2 class="section-header" style="margin-bottom: 20px;">Project Resources</h2>
+                
+                <div class="list-item" style="border: none; padding-bottom: 0; margin-bottom: 0;">
+                    <a href="#" target="_blank" class="contact-link" style="margin-bottom: 20px;">
+                        <div class="item-title">Resource Link 1</div>
+                        <span class="item-subtitle">Description of this resource goes here.</span>
+                    </a>
+                    <a href="#" target="_blank" class="contact-link">
+                        <div class="item-title">Resource Link 2</div>
+                        <span class="item-subtitle">Description of this resource goes here.</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
