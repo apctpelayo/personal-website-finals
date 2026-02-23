@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 // --- DATABASE LOGIC ---
 const comments = ref([])
@@ -32,11 +32,20 @@ const submitComment = async () => {
 
 // --- MOBILE MENU & MODAL LOGIC ---
 const isMenuOpen = ref(false)
-const showResources = ref(false) // Controls the pop-up visibility
+const showResources = ref(false) 
 
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
 }
+
+// WATCHER: Locks the background scrolling when modal is open!
+watch(showResources, (isOpen) => {
+  if (isOpen) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+})
 
 // --- SCROLL SPY LOGIC ---
 onMounted(() => {
