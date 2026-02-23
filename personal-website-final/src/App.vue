@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 
-// --- DATABASE LOGIC ---
 const comments = ref([])
 const newName = ref('')
 const newMessage = ref('')
@@ -30,7 +29,6 @@ const submitComment = async () => {
   }
 }
 
-// --- MOBILE MENU & MODAL LOGIC ---
 const isMenuOpen = ref(false)
 const showResources = ref(false) 
 
@@ -38,7 +36,6 @@ const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
 }
 
-// WATCHER: Locks the background scrolling when modal is open!
 watch(showResources, (isOpen) => {
   if (isOpen) {
     document.body.style.overflow = 'hidden'
@@ -47,15 +44,12 @@ watch(showResources, (isOpen) => {
   }
 })
 
-// --- SCROLL SPY LOGIC ---
 onMounted(() => {
   fetchComments();
 
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('.section-spy');
-
   const observerOptions = { root: null, rootMargin: "-20% 0px -60% 0px", threshold: 0 };
-
   const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -66,8 +60,19 @@ onMounted(() => {
           }
       });
   }, observerOptions);
-
   sections.forEach(section => { if (section) observer.observe(section); });
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              entry.target.style.animation = 'popUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
+              observer.unobserve(entry.target);
+          }
+      });
+  }, { threshold: 0.15 });
+
+  const elementsToReveal = document.querySelectorAll('.section-header, .list-item, .brand-list span, .gallery-item');
+  elementsToReveal.forEach(el => revealObserver.observe(el));
 });
 </script>
 

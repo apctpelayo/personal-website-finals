@@ -91,18 +91,18 @@ textarea.gb-input { resize: none; min-height: 100px; }
     100% { opacity: 1; transform: translateY(0); }
 }
 
-.hero h1, .profile-pic, .section-header, .list-item, .brand-list span, .gallery-item {
+.hero h1, .profile-pic {
     opacity: 0; 
     animation: popUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .hero h1:nth-of-type(1) { animation-delay: 0.3s; } 
-
 .profile-pic { animation-delay: 0.6s; } 
-
 .hero h1:nth-of-type(2) { animation-delay: 0.9s; }
 
-.section-header, .list-item, .brand-list span, .gallery-item { animation-delay: 1.2s; }
+.section-header, .list-item, .brand-list span, .gallery-item { 
+    opacity: 0; 
+}
 
 @media (max-width: 1024px) {
     .content-area { padding-right: 5%; }
