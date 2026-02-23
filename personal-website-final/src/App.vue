@@ -273,10 +273,25 @@ onMounted(() => {
                         <span class="item-subtitle">AI Assistant / Code Troubleshooting</span>
                     </a>
 
-                    <a href="https://camillemormal.com/about" target="_blank" class="contact-link">
+                    <a href="https://camillemormal.com/about" target="_blank" class="contact-link" style="margin-bottom: 20px;">
                         <div class="item-title">Inspiration</div>
                         <span class="item-subtitle">camillemormal.com/about</span>
                     </a>
+
+                    <div class="contact-link" style="margin-bottom: 20px; cursor: default;">
+                        <div class="item-title">Vue.js</div>
+                        <span class="item-subtitle">Frontend JavaScript Framework</span>
+                    </div>
+
+                    <div class="contact-link" style="margin-bottom: 20px; cursor: default;">
+                        <div class="item-title">Hosted on Vercel.com</div>
+                        <span class="item-subtitle">Cloud Deployment & Hosting</span>
+                    </div>
+
+                    <div class="contact-link" style="cursor: default;">
+                        <div class="item-title">Supabase as Database</div>
+                        <span class="item-subtitle">Backend Database & Serverless API</span>
+                    </div>
 
                 </div>
             </div>
@@ -296,6 +311,6 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-        
+
     </div>
 </template>
