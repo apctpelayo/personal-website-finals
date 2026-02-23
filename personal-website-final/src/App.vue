@@ -258,7 +258,7 @@ onMounted(() => {
                 
                 <div class="list-item" style="border: none; padding-bottom: 0; margin-bottom: 0;">
                     
-                    <a href="https://gemini.google.com/share/878fdd413429" target="_blank" class="contact-link" style="margin-bottom: 20px;">
+                    <a href="https://gemini.google.com/share/c89a28e42387" target="_blank" class="contact-link" style="margin-bottom: 20px;">
                         <div class="item-title">Google Gemini</div>
                         <span class="item-subtitle">AI Assistant / Code Troubleshooting</span>
                     </a>
