@@ -176,3 +176,10 @@ textarea.gb-input { resize: none; min-height: 100px; }
 }
 
 .modal-close:hover { color: #fff; }
+
+/* Fix: Overrides the scroll-reveal so modal text stays visible */
+.modal-content .section-header, 
+.modal-content .list-item {
+    opacity: 1 !important;
+    animation: none !important;
+}
